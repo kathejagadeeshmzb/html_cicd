@@ -1,0 +1,175 @@
+
+  <!DOCTYPE html>
+  <html>
+    <head >
+      <title>application form</title>
+      <style>
+        body {
+            background-color: rgb(197, 191, 184);
+        }
+        .name{
+            background-color: rgb(168, 229, 229);
+            text-align: center;
+        }
+       .name2{
+        background-color: aliceblue;
+        text-align: center;
+       }
+       #customers {
+  font-family: Arial, Helvetica, sans-serif;
+  border-collapse: collapse;
+  width: 100%;
+}
+
+#customers td, #customers th {
+  border: 1px solid #ddd;
+  padding: 8px;
+}
+
+#customers tr:nth-child(even){background-color: #f2f2f2;}
+
+#customers tr:hover {background-color: #ddd;}
+
+#customers th {
+  padding-top: 12px;
+  padding-bottom: 12px;
+  text-align: left;
+  background-color: #04AA6D;
+  color: white;
+}
+      </style>
+    </head>
+    <body>
+      <h1 class="name">Adarsha High School</h1>
+      <h2 class="name2">Student Registration Form</h2>
+      <form>
+        <div style="display: flex; justify-content: space-between">
+          <div>
+            <div style="display: flex; flex-direction: column; width: 400px;">
+              <label for="sname">name</label>
+              <input type="text" id="sname" />
+              <label for="sname">student name:</label>
+              <input type="text" id="sname" />
+              <label for="fname">father's name:</label>
+              <input type="text" id="fname" />
+              <label for="mname">Mother's name:</label>
+              <input type="text" id="mname" />
+            </div>
+            <div style="padding: 10px;">
+              <span>Gender:</span>
+              <input type="radio" id="radio1" name="gender" value="male" />
+              <label for="radio1">male</label>
+              <input type="radio" id="radio2" name="gender" value="Female" />
+              <label for="radio2">Female</label>
+              <input type="radio" id="radio3" name="gender" value="Others" />
+              <label for="radio3">Others</label>
+            </div>
+            <div style="display: flex; flex-direction: column; width: 400px; gap: 5px;">
+              <label for="dob">Date of Birth: </label>
+              <input type="date" id="dob" />
+              <label for="mail">E-mail</label>
+              <input type="gmail" id="mail" />
+              <label for="Levels">Level:</label>
+              <select name="Level" id="Levels">
+                <option value="school">School</option>
+                <option value="college1">Intermediate</option>
+                <option value="college2">Degree</option>
+              </select>
+              <label for="dept">department:</label>
+              <select name="depts" id="dept">
+                <option value="B.A">Bachular Arts</option>
+                <option value="MSC">M.S.C</option>
+                <option value="bsc">B.S.C</option>
+              </select>
+              <label for="phone">TEl/Mobile</label>
+              <input type="tel" id="phone" />
+            </div>
+          </div>
+          <div style="display: flex; flex-direction: column; width: 200px;">
+            <input
+              type="image"
+              src="../../IMG_4618.PNG"
+              alt="My picture"
+              width="200"
+              height="200"
+            />
+            <label for="sign">signature</label>
+            <input type="text" id="sign" />
+          </div>
+        </div>
+        <hr />
+        <div  style="display: flex; flex-direction: column; width: 200px">
+          <p class="name2">perminent address</p>
+          <label for="state">state:</label>
+          <input type="text" id="state" />
+          <label for="city">city:</label>
+          <input type="text" id="city" />
+          <label for="zip">Zip code:</label>
+          <input type="text" id="zip" />
+          <label for="tel">tel/mobile:</label>
+          <input type="number" id="tel" />
+          <label for="submit">submit</label>
+          <input type="submit" id="submit" />
+        </div>
+      </form>
+      <h1>A Fancy Table</h1>
+
+<table id="customers">
+  <tr>
+    <th>Company</th>
+    <th>Contact</th>
+    <th>Country</th>
+  </tr>
+  <tr>
+    <td>Alfreds Futterkiste</td>
+    <td>Maria Anders</td>
+    <td>Germany</td>
+  </tr>
+  <tr>
+    <td>Berglunds snabbköp</td>
+    <td>Christina Berglund</td>
+    <td>Sweden</td>
+  </tr>
+  <tr>
+    <td>Centro comercial Moctezuma</td>
+    <td>Francisco Chang</td>
+    <td>Mexico</td>
+  </tr>
+  <tr>
+    <td>Ernst Handel</td>
+    <td>Roland Mendel</td>
+    <td>Austria</td>
+  </tr>
+  <tr>
+    <td>Island Trading</td>
+    <td>Helen Bennett</td>
+    <td>UK</td>
+  </tr>
+  <tr>
+    <td>Königlich Essen</td>
+    <td>Philip Cramer</td>
+    <td>Germany</td>
+  </tr>
+  <tr>
+    <td>Laughing Bacchus Winecellars</td>
+    <td>Yoshi Tannamuri</td>
+    <td>Canada</td>
+  </tr>
+  <tr>
+    <td>Magazzini Alimentari Riuniti</td>
+    <td>Giovanni Rovelli</td>
+    <td>Italy</td>
+  </tr>
+  <tr>
+    <td>North/South</td>
+    <td>Simon Crowther</td>
+    <td>UK</td>
+  </tr>
+  <tr>
+    <td>Paris spécialités</td>
+    <td>Marie Bertrand</td>
+    <td>France</td>
+  </tr>
+</table>
+    </body>
+  </html>

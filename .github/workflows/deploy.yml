@@ -1,15 +1,16 @@
-name: Build Docker Image
+name: Build and Push Docker Image
 
-on: 
-  push: 
-    branches: 
+on:
+  push:
+    branches:
       - main
-permissions: 
-   id-token: write
-   contents: read
 
-jobs: 
-  build: 
+permissions:
+  contents: read
+  id-token: write
+
+jobs:
+  build:
     runs-on: ubuntu-latest
 
     steps:
@@ -36,7 +37,3 @@ jobs:
       - name: Push Docker image
         run: |
           docker push kathejagadeeshmzb/my-app:${{ env.TAG }}
-      - name: Deploy to github pages
-        uses: actions/deploly-pages@4
-        with: 
-          github_token: ${{ secrets.MY_GITHUB_TOKEN }}

@@ -1,11 +1,15 @@
-name: Build Docker Image
+name: Build and Push Docker Image
 
-on: 
+on:
   push:
-    branches: 
+    branches:
       - main
 
-jobs: 
+permissions:
+  contents: read
+  id-token: write
+
+jobs:
   build:
     runs-on: ubuntu-latest
 
@@ -31,5 +35,5 @@ jobs:
           docker build -t kathejagadeeshmzb/my-app:${{ env.TAG }} .
 
       - name: Push Docker image
-        run: docker push kathejagadeeshmzb/my-app:${{ env.TAG }}
-
+        run: |
+          docker push kathejagadeeshmzb/my-app:${{ env.TAG }}

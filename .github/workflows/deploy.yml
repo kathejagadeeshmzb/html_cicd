@@ -1,34 +1,21 @@
-name: Deploy HTML page
-
-
+Name: build docker image
 on: 
   push:
-    branches:
+    branches: 
       - main
 
-jobs:
+jobs: 
   build:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu letest
+
+
 
     steps:
-    - name: Checkout code
-      uses: actions/checkout@v2
+      - name: check out code
+        uses: actions/checkout@v2
 
-    - name: Install dependencies
-      run: npm install
 
-    - name: Run lint
-      run: npm run lint
+      - name: set up docker buildx
+        uses: docker/setup-buildx-action@v2
 
-    - name: Run tests
-      run: npm test
-
-    - name: Build project
-      run: npm run build
-
-    - name: Deploy to Production
-      if: github.ref == 'refs/heads/main'
-      uses: peaceiris/actions-gh-pages@v3
-      with:
-        github_token: ${{ secrets.GITHUB_TOKEN }}
-        publish_dir: ./dist
+      - name: 

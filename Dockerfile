@@ -1,5 +1,4 @@
 FROM nginx:alpine
-LABEL name="jagaeesh"
-COPY *html /usr/shbare/nginx/html
+COPY *html /usr/share/nginx/html
 EXPOSE 80
-CMD ["nginx", "-g", "deamon off;"]
+CMD ["nginx", "-g", "daemon off;"]

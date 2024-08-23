@@ -31,5 +31,5 @@ jobs:
           docker build -t kathejagadeeshmzb/my-app:${{ env.TAG }} .
 
       - name: Push Docker image
-        run: docker push kathejagadeeshmzb/my-app:${{ env.TAG }}
-
+        run: |
+          docker push kathejagadeeshmzb/my-app:${{ env.TAG }}

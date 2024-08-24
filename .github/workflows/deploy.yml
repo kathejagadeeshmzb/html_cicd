@@ -24,10 +24,10 @@ jobs:
 
       - name: Build and push docker images 
         run: |
-          docker build -t kathejagadeeshmzb/html-repo:${{ env.TAG }}
+          docker build -t kathejagadeeshmzb/html-repo:${{ env.TAG }} .
           docker push kathejagadeeshmzb/html-repo:letest
           docker push kathejagadeeshmzb/html-repo:${{ env.TAG }}
-            
+
       - name: depoly to ec2
         env: 
           SSH_PRIVATE_KEY: ${{ secrets.EC2_SSH_PRIVATE_KEY }}

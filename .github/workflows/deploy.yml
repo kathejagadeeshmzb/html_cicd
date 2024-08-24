@@ -4,6 +4,7 @@ on:
   push:
     branches:
       - main
+
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -22,26 +23,9 @@ jobs:
         id: docker_tag
         run: echo "TAG=$(date +%Y%m%d%H%M%S)-${GITHUB_SHA::7}" >> $GITHUB_ENV
 
-      - name: Build and push docker images 
+      - name: Build and push Docker images
         run: |
           docker build -t kathejagadeeshmzb/html-repo:${{ env.TAG }} .
-          docker push kathejagadeeshmzb/html-repo:letest
+          docker tag kathejagadeeshmzb/html-repo:${{ env.TAG }} kathejagadeeshmzb/html-repo:latest
           docker push kathejagadeeshmzb/html-repo:${{ env.TAG }}
-
-      - name: depoly to ec2
-        env: 
-          SSH_PRIVATE_KEY: ${{ secrets.EC2_SSH_PRIVATE_KEY }}
-          EC2_HOST: ${{ secrets.EC2_HOST }}
-          EC2_USER: ${{ secrets.EC2_USER }}
-          IMAGE_TAG: ${{ env.TAG}}
-        run: |
-          echo "$SSH_PRIVATE_KEY" > github-key.pem
-          chmod 600 github-key.pem
-
-          ssh -o StrictHostKeyChecking=no -i github-key.pem $EC2_USER@$EC2_HOST << EOF
-            docker pull kathejagadeeshmzb/html-repo:latest
-            docker pull kathejagadeeshmzb/html-repo:${{ IMAGE_TAG}}
-            docker  stop my-container || true
-            docker rm my-container || true
-            docker run -d --name my-container -p 8079:80 kathejagadeesh/html-repo:${{IMAGE_TAG}}
-            EOF
+          docker push kathejagadeeshmzb/html-repo:latest

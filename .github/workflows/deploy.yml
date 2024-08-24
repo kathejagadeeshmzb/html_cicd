@@ -29,3 +29,24 @@ jobs:
           docker tag kathejagadeeshmzb/html-repo:${{ env.TAG }} kathejagadeeshmzb/html-repo:latest
           docker push kathejagadeeshmzb/html-repo:${{ env.TAG }}
           docker push kathejagadeeshmzb/html-repo:latest
+  deploy:
+    runs-on: ubuntu-latest
+    needs: build
+    steps:
+      - name: Deploy to EC2
+        env:
+          SSH_PRIVATE_KEY: ${{ secrets.EC2_SSH_PRIVATE_KEY }}
+          EC2_HOST: ${{ secrets.EC2_HOST }}
+          EC2_USER: ${{ secrets.EC2_USER }}
+          IMAGE_TAG: ${{ env.TAG }}
+        run: |
+          echo "$SSH_PRIVATE_KEY" > github-key.pem
+          chmod 600 github-key.pem
+
+          ssh -o StrictHostKeyChecking=no -i github-key.pem $EC2_USER@$EC2_HOST << EOF
+            docker pull kathejagadeeshmzb/html-repo:latest
+            docker pull kathejagadeeshmzb/html-repo:${{ IMAGE_TAG }}
+            docker stop my-container || true
+            docker rm my-container || true
+            docker run -d --name my-container -p 8079:80 kathejagadeeshmzb/html-repo:${{ IMAGE_TAG }}
+          EOF

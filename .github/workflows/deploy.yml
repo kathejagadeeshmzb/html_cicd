@@ -22,19 +22,12 @@ jobs:
         id: docker_tag
         run: echo "TAG=$(date +%Y%m%d%H%M%S)-${GITHUB_SHA::7}" >> $GITHUB_ENV
 
-      - name: Build and push docker images using kaniko
-        uses: gcr.io/kaniko-project/executor@v1
-        with:
-          args: |
-            --dockerfile=Dockerfile
-            --context=dir://$(pwd)
-            --destination=kathejagadeeshmzb/html-repo:latest
-            --destination=kathejagadeeshmzb/html-repo:${{ env.TAG }}
-            --skip-tls-verify
-  Deploy: 
-    runs-on: ubuntu:latest
-    needs: build
-    steps: 
+      - name: Build and push docker images 
+        run: |
+          docker build -t kathejagadeeshmzb/html-repo:${{ env.TAG }}
+          docker push kathejagadeeshmzb/html-repo:letest
+          docker push kathejagadeeshmzb/html-repo:${{ env.TAG }}
+            
       - name: depoly to ec2
         env: 
           SSH_PRIVATE_KEY: ${{ secrets.EC2_SSH_PRIVATE_KEY }}

@@ -54,7 +54,8 @@ jobs:
 
       - name: Package Helm chart
         run: |
-          helm package ./my-chart --version ${{ needs.build.outputs.image-tag }}
+          cd my-chart
+          helm package --version ${{ needs.build.outputs.image-tag }}
 
       - name: Deploy with Helm
         env:

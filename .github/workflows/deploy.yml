@@ -44,9 +44,9 @@ jobs:
         env:
           KUBECONFIG: ${{ secrets.KUBECONFIG }}
         run: |
-           mkdir -p $HOME/.kube
-           echo "${KUBECONFIG}" | base64 -d > $HOME/.kube/config
-           chmod 600 $HOME/.kube/config
+          mkdir -p $HOME/.kube
+          echo "${KUBECONFIG}" | base64 -d > $HOME/.kube/config
+          chmod 600 $HOME/.kube/config
 
       - name: Install Helm
         run: |
@@ -54,12 +54,11 @@ jobs:
 
       - name: Package Helm chart
         run: |
-          cd my-chart  # Navigate to the directory containing your Helm chart
-          helm package . --version ${{ needs.build.outputs.image-tag }}
+          helm package ./my-chart --version ${{ needs.build.outputs.image-tag }}
 
       - name: Deploy with Helm
         env:
           IMAGE_NAME: "kathejagadeeshmzb/html-repo"
           IMAGE_TAG: ${{ needs.build.outputs.image-tag }}
         run: |
-          helm upgrade --install my-release ./my-chart --set image.repository=${IMAGE_NAME} --set image.tag=${IMAGE_TAG}
+          helm upgrade --install my-release ./my-chart-${{ needs.build.outputs.image-tag }}.tgz --set image.repository=${IMAGE_NAME} --set image.tag=${IMAGE_TAG}

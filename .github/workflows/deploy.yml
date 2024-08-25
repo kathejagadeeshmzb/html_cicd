@@ -52,10 +52,20 @@ jobs:
         run: |
           curl -sSL https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3 | bash
 
+      - name: Print repository structure
+        run: |
+          echo "Current directory structure:"
+          ls -R
+
       - name: Package Helm chart
         run: |
-          cd my-chart
-          helm package --version ${{ needs.build.outputs.image-tag }}
+          if [ -d "my-chart" ]; then
+            cd my-chart
+            helm package . --version ${{ needs.build.outputs.image-tag }}
+          else
+            echo "my-chart directory does not exist"
+            exit 1
+          fi
 
       - name: Deploy with Helm
         env:

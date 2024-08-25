@@ -46,7 +46,7 @@ jobs:
         run: |
            mkdir -p $HOME/.kube
            echo "${KUBECONFIG}" | base64 -d > $HOME/.kube/config
-
+           chmod 600 $HOME/.kube/config
 
       - name: Install Helm
         run: |
@@ -54,7 +54,8 @@ jobs:
 
       - name: Package Helm chart
         run: |
-          helm package ./my-chart --version ${{ needs.build.outputs.image-tag }}
+          cd my-chart  # Navigate to the directory containing your Helm chart
+          helm package . --version ${{ needs.build.outputs.image-tag }}
 
       - name: Deploy with Helm
         env:

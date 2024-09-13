@@ -55,12 +55,13 @@ jobs:
 
       - name: apply kubernetes manifests
         run: |
-          kubectl apply -f my-deployment.yaml
-          kubectl apply -f service.yaml
+          kubectl apply -f my-deployment.yaml || exit 1
+          kubectl apply -f service.yaml || exit 1
 
       - name: update docker image to k3s
         env:
           IMAGE_NAME: "kathejagadeeshmzb/html-repo:${{ needs.build.outputs.image-tag }}"
         run: |
-          kubectl set image deployment/my-deployment web-app=$IMAGE_NAME
-          kubectl rollout status deployment/my-deployment 
+          kubectl get deployment my-deployment || exit 1
+          kubectl set image deployment/my-deployment web-app=$IMAGE_NAME || exit 1
+          kubectl rollout status deployment/my-deployment || exit 1

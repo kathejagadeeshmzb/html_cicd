@@ -50,9 +50,8 @@ jobs:
       - name: Configure kubectl to use k3s cluster
         run: |
           mkdir -p $HOME/.kube
-          echo "${{ secrets.KUBECONFIG }}" | base64 -d KUBECONFIG > $HOME/.kube/config
-          kubectl config view 
-        
+          echo "${{ secrets.KUBECONFIG }}" | base64 -d > $HOME/.kube/config
+          kubectl config view
 
       - name: apply kubernetes manifests
         run: |

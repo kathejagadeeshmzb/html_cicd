@@ -40,6 +40,16 @@ jobs:
     steps:
       - name: check out code
         uses: actions/checkout@v3
+      - name: Copy kubeconfig to home directory
+        run: |
+          mkdir -p $HOME/.kube
+          cp /etc/rancher/k3s/k3s.yaml $HOME/.kube/config
+          chmod 600 $HOME/.kube/config  # Ensure the kubeconfig file has the right permissions
+
+      - name: Set KUBECONFIG environment variable
+        run: |
+          export KUBECONFIG=$HOME/.kube/config
+          kubectl config view
 
 
       - name: apply kubernetes manifests

@@ -35,23 +35,12 @@ jobs:
           docker push $IMAGE_NAME:${{ steps.docker_tag.outputs.TAG }}
           docker push $IMAGE_NAME:latest
   deploy:
-    runs-on: ubuntu-latest
+    runs-on: self-hosted
     needs: build
     steps:
       - name: check out code
         uses: actions/checkout@v3
 
-      - name: set up kubectl 
-        run: | 
-          sudo curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl"
-
-          sudo chmod +x ./kubectl
-          sudo mv ./kubectl /usr/local/bin/kubectl
-      - name: Configure kubectl to use k3s cluster
-        run: |
-          mkdir -p $HOME/.kube
-          echo "${{ secrets.KUBECONFIG }}" | base64 -d > $HOME/.kube/config
-          kubectl config view
 
       - name: apply kubernetes manifests
         run: |

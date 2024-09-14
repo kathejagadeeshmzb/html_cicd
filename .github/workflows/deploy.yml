@@ -51,7 +51,7 @@ jobs:
       - name: Set KUBECONFIG environment variable
         run: |
           export KUBECONFIG=$HOME/.kube/config
-          kubectl config view
+          kubectl config view #nothig
 
 
       - name: apply kubernetes manifests

@@ -35,17 +35,19 @@ jobs:
           docker push $IMAGE_NAME:${{ steps.docker_tag.outputs.TAG }}
           docker push $IMAGE_NAME:latest
   deploy:
-    runs-on: self-hosted
+    runs-on: ubuntu-latest
     needs: build
     steps:
       - name: check out code
         uses: actions/checkout@v3
-      - name: Copy kubeconfig to home directory
+
+      - name: Set up kubeconfig
         run: |
           mkdir -p $HOME/.kube
-          cp /etc/rancher/k3s/k3s.yaml $HOME/.kube/config
-          chmod 600 $HOME/.kube/config  # Ensure the kubeconfig file has the right permissions
-
+          echo "${{ secrets.KUBECONFIG_CONTENT }}" | base64 --decode > $HOME/.kube/config
+          chmod 600 $HOME/.kube/config
+          kubectl config use-context my-cluster
+          
       - name: Set KUBECONFIG environment variable
         run: |
           export KUBECONFIG=$HOME/.kube/config
